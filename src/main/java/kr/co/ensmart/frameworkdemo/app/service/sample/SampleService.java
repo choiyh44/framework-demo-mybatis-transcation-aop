@@ -1,4 +1,4 @@
-package kr.co.ensmart.frameworkdemo.app.service;
+package kr.co.ensmart.frameworkdemo.app.service.sample;
 
 import java.util.List;
 
@@ -24,5 +24,10 @@ public interface SampleService {
      * 
      */
     public void regWithException() throws Exception;
+
+    /**
+     * @throws Exception
+     */
+    void regWithAnnotation() throws Exception;
 
 }

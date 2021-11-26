@@ -8,10 +8,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.aspectj.lang.annotation.Aspect;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.interceptor.MatchAlwaysTransactionAttributeSource;
 import org.springframework.transaction.interceptor.RollbackRuleAttribute;
@@ -24,21 +26,21 @@ import org.springframework.transaction.interceptor.TransactionInterceptor;
  * @since 2021. 11. 25.
  *
  */
-//@Aspect
-//@Configuration
-public class TranscationAspect {
+@Aspect
+@Configuration
+public class OrderDbTranscationAspect {
 
     @Resource(name="orderRwdbTxManager")
-    private TransactionManager transactionManager;
+    private TransactionManager orderRwdbTxManager;
 
     private static final String EXPRESSION 
-            = "execution(* kr.co.ensmart.frameworkdemo.app.service.*ServiceImpl.register*(..)) "
-            + " || execution(* kr.co.ensmart.frameworkdemo.app..service..*ServiceImpl.modify*(..))"
-            + " || execution(* kr.co.ensmart.frameworkdemo.app..service..*ServiceImpl.delete*(..))"
+            = "execution(* kr.co.ensmart.frameworkdemo.app.service.sample.*ServiceImpl.register*(..)) "
+            + " || execution(* kr.co.ensmart.frameworkdemo.app.service.sample.*ServiceImpl.modify*(..))"
+            + " || execution(* kr.co.ensmart.frameworkdemo.app.service.sample.*ServiceImpl.delete*(..))"
             ;
 
     @Bean
-    public TransactionInterceptor transactionAdvice() {
+    public TransactionInterceptor orderDbTransactionAdvice() {
 
         List<RollbackRuleAttribute> rollbackRules = Collections.singletonList(new RollbackRuleAttribute(Exception.class));
 
@@ -49,16 +51,16 @@ public class TranscationAspect {
         MatchAlwaysTransactionAttributeSource attributeSource = new MatchAlwaysTransactionAttributeSource();
         attributeSource.setTransactionAttribute(transactionAttribute);
 
-        return new TransactionInterceptor(transactionManager, attributeSource);
+        return new TransactionInterceptor(orderRwdbTxManager, attributeSource);
     }
 
     @Bean
-    public Advisor transactionAdvisor() {
+    public Advisor orderDbTransactionAdvisor() {
 
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
         pointcut.setExpression(EXPRESSION);
 
-        return new DefaultPointcutAdvisor(pointcut, transactionAdvice());
+        return new DefaultPointcutAdvisor(pointcut, orderDbTransactionAdvice());
     }
 
 }

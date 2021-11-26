@@ -16,7 +16,6 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
@@ -27,36 +26,32 @@ import org.springframework.transaction.PlatformTransactionManager;
  *
  */
 @Configuration
-@MapperScan(value="kr.co.ensmart.frameworkdemo.app.dao.sample", sqlSessionFactoryRef="orderRwdbSqlSessionFactory")
-public class OrderRwdbDatabaseConfig {
-    @Bean(name = "orderRwdbDataSource")
-    @Primary
-    @ConfigurationProperties(prefix = "spring.datasource1")
-    public DataSource orderRwdbDataSource() {
+@MapperScan(value="kr.co.ensmart.frameworkdemo.app.dao.sample2", sqlSessionFactoryRef="displayRwdbSqlSessionFactory")
+public class DisplayRwdbDatabaseConfig {
+    @Bean(name = "displayRwdbDataSource")
+    @ConfigurationProperties(prefix = "spring.datasource2")
+    public DataSource displayRwdbDataSource() {
         return DataSourceBuilder.create().build();
     }
 
-    @Bean(name = "orderRwdbSqlSessionFactory")
-    @Primary
-    public SqlSessionFactory orderRwdbSqlSessionFactory(@Qualifier("orderRwdbDataSource") DataSource orderRwdbDataSource, ApplicationContext applicationContext) throws Exception {
+    @Bean(name = "displayRwdbSqlSessionFactory")
+    public SqlSessionFactory displayRwdbSqlSessionFactory(@Qualifier("displayRwdbDataSource") DataSource displayRwdbDataSource, ApplicationContext applicationContext) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-        sqlSessionFactoryBean.setDataSource(orderRwdbDataSource);
+        sqlSessionFactoryBean.setDataSource(displayRwdbDataSource);
         sqlSessionFactoryBean.setTypeAliasesPackage("kr.co.ensmart.frameworkdemo.common.dto");
-        sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:mapper/sample/**/*.xml"));
+        sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:mapper/sample2/**/*.xml"));
         sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis-config.xml"));
         return sqlSessionFactoryBean.getObject();
     }
 
-    @Bean(name = "orderRwdbSqlSessionTemplate")
-    @Primary
-    public SqlSessionTemplate orderRwdbSqlSessionTemplate(SqlSessionFactory orderRwdbSqlSessionFactory) throws Exception {
-        return new SqlSessionTemplate(orderRwdbSqlSessionFactory);
+    @Bean(name = "displayRwdbSqlSessionTemplate")
+    public SqlSessionTemplate displayRwdbSqlSessionTemplate(SqlSessionFactory displayRwdbSqlSessionFactory) throws Exception {
+        return new SqlSessionTemplate(displayRwdbSqlSessionFactory);
     }
 
-    @Bean(name="orderRwdbTxManager")
-    @Primary
-    public PlatformTransactionManager db1TxManager(@Autowired @Qualifier("orderRwdbDataSource") DataSource orderRwdbDataSource) {
-        return new DataSourceTransactionManager(orderRwdbDataSource);
+    @Bean(name="displayRwdbTxManager")
+    public PlatformTransactionManager db1TxManager(@Autowired @Qualifier("displayRwdbDataSource") DataSource displayRwdbDataSource) {
+        return new DataSourceTransactionManager(displayRwdbDataSource);
     }
 
 }
