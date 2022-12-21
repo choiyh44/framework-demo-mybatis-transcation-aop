@@ -25,6 +25,16 @@ public class SampleRestController {
 		return sampleService.retrieveAllSamples();
 	}
 	
+    @GetMapping("/retrieve-all-samples-caller")
+    public List<Sample> retrieveAllSamplesCaller() {
+        return sampleService.retrieveAllSamplesCaller();
+    }
+    
+    @GetMapping("/retrieve-all-samples-tx")
+    public List<Sample> retrieveAllSamplestx() {
+        return sampleService.retrieveAllSamplesTx();
+    }
+    
 	@GetMapping("/{id}")
 	public Sample retrieveAllSamples(@PathVariable Integer id) {
 		return sampleService.retrieveSampleById(id);

@@ -8,12 +8,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.aspectj.lang.annotation.Aspect;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.interceptor.MatchAlwaysTransactionAttributeSource;
 import org.springframework.transaction.interceptor.RollbackRuleAttribute;
@@ -26,8 +24,8 @@ import org.springframework.transaction.interceptor.TransactionInterceptor;
  * @since 2021. 11. 25.
  *
  */
-@Aspect
-@Configuration
+//@Aspect
+//@Configuration
 public class DisplayDbTranscationAspect {
 
     @Resource(name="displayRwdbTxManager")

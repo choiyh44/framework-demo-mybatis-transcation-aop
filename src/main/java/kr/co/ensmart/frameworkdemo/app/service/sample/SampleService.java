@@ -30,4 +30,14 @@ public interface SampleService {
      */
     void regWithAnnotation() throws Exception;
 
+    /**
+     * @return
+     */
+    List<Sample> retrieveAllSamplesCaller();
+
+    /**
+     * @return
+     */
+    List<Sample> retrieveAllSamplesTx();
+
 }

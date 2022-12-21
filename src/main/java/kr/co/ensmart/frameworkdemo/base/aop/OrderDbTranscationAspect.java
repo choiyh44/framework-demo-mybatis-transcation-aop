@@ -34,9 +34,10 @@ public class OrderDbTranscationAspect {
     private TransactionManager orderRwdbTxManager;
 
     private static final String EXPRESSION 
-            = "execution(* kr.co.ensmart.frameworkdemo.app.service.sample.*ServiceImpl.register*(..)) "
-            + " || execution(* kr.co.ensmart.frameworkdemo.app.service.sample.*ServiceImpl.modify*(..))"
-            + " || execution(* kr.co.ensmart.frameworkdemo.app.service.sample.*ServiceImpl.delete*(..))"
+//            = "execution(* kr.co.ensmart.frameworkdemo.app.service.sample.*ServiceImpl.register*(..)) "
+//            + " || execution(* kr.co.ensmart.frameworkdemo.app.service.sample.*ServiceImpl.modify*(..))"
+//            + " || execution(* kr.co.ensmart.frameworkdemo.app.service.sample.*ServiceImpl.delete*(..))"
+            = "execution(* kr.co.ensmart.frameworkdemo.app.service.sample.*ServiceImpl.*(..)) && !@annotation(kr.co.ensmart.frameworkdemo.base.aop.NoAopTx) && !@within(kr.co.ensmart.frameworkdemo.base.aop.NoAopTx)"
             ;
 
     @Bean

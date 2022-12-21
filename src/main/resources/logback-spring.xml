@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+	<springProperty scope="context" name="myappName" source="spring.application.name"/>
+
+	<springProfile name="default,local">
+		<logger name="org.springframework.web" level="DEBUG"/>
+		<logger name="kr.co.ensmart.frameworkdemo" additivity="false" level='debug' >
+			<appender-ref ref="CONSOLE" />
+		</logger>
+		<logger name="org.springframework.transaction" additivity="false" level='debug' >
+			<appender-ref ref="CONSOLE" />
+		</logger>
+		<logger name="org.springframework.transaction.interceptor" additivity="false" level='trace' >
+			<appender-ref ref="CONSOLE" />
+		</logger>
+		<logger name="com.zaxxer.hikari" additivity="false" level='trace' >
+			<appender-ref ref="CONSOLE" />
+		</logger>
+		<logger name="com.zaxxer.hikari.HikariConfig" additivity="false" level='debug' >
+			<appender-ref ref="CONSOLE" />
+		</logger>
+		<root level="info">
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+
+	<springProfile name="dev">
+		<logger name="com.ifactshub.ifactsdemo" additivity="false" level='debug' >
+			<appender-ref ref="CONSOLE" />
+		</logger>
+		<root level="info" >
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+
+	<springProfile name="prd">
+		<logger name="com.ifactshub.ifactsdemo" additivity="false" level='error' >
+			<appender-ref ref="CONSOLE" />
+		</logger>
+		<root level="error" >
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+
+</configuration>

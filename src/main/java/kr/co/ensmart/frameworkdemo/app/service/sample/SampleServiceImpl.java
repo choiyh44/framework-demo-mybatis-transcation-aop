@@ -4,12 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.ensmart.frameworkdemo.app.dao.sample.SampleMapper;
 import kr.co.ensmart.frameworkdemo.app.dao.sample2.Sample2Mapper;
+import kr.co.ensmart.frameworkdemo.base.aop.NoAopTx;
 import kr.co.ensmart.frameworkdemo.common.dto.sample.Sample;
 
+@NoAopTx
 @Service
 public class SampleServiceImpl implements SampleService {
 	@Autowired
@@ -22,6 +25,17 @@ public class SampleServiceImpl implements SampleService {
 	public List<Sample> retrieveAllSamples() {
 		return  sampleMapper.selectAllSampleList();
 	}
+
+    @Override
+    public List<Sample> retrieveAllSamplesCaller() {
+        return  retrieveAllSamplesTx();
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public List<Sample> retrieveAllSamplesTx() {
+        return  sampleMapper.selectAllSampleList();
+    }
 
 	@Override
 	public Sample retrieveSampleById(Integer id) {

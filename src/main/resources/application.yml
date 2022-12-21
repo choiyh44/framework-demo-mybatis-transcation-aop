@@ -27,8 +27,10 @@ spring:
   datasource1:
     jdbc-url: jdbc:postgresql://localhost:5432/postgres?currentSchema=x2commerce
     driver-class-name: org.postgresql.Driver
-    username: x2commerce
-    password: x2commerce123!
+    username: postgres
+    password: admin
+#    username: x2commerce
+#    password: x2commerce123!
     hikari:
       maximum-pool-size: 5
       minimum-idle: 5
@@ -40,8 +42,10 @@ spring:
   datasource2:
     jdbc-url: jdbc:postgresql://localhost:5432/x2beedb?currentSchema=x2bee
     driver-class-name: org.postgresql.Driver
-    username: x2bee
-    password: x2bee123!
+    username: postgres
+    password: admin
+#    username: x2bee
+#    password: x2bee123!
     hikari:
       maximum-pool-size: 5
       minimum-idle: 5
@@ -49,9 +53,3 @@ spring:
       validation-timeout: 5000
       max-lifetime: 1800000
       idle-timeout: 300000
-
-logging:
-  level:
-    kr.co.ensmart.frameworkdemo.app.dao: debug
-
-debug: true
