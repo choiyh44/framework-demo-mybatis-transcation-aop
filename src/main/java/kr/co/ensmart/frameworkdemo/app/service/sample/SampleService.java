@@ -40,4 +40,9 @@ public interface SampleService {
      */
     List<Sample> retrieveAllSamplesTx();
 
+    /**
+     * @return
+     */
+    public List<Sample> retrieveSlowSamples();
+
 }

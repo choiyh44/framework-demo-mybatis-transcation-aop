@@ -30,6 +30,20 @@
 		where id = #{id}
 	</select>
 	
+	<!-- slow query 테스트 -->
+	<select id="selectSlowSampleList" resultType="sample" timeout="5">
+		/* TestMapper.selectAllTestList */
+		select
+			s.id,
+			s.name,
+			s.description,
+			s.sys_reg_dtime,
+			s.sys_regr_id,
+			s.sys_mod_dtime,
+			s.sys_modr_id
+		from sample s, pg_sleep(12) b
+	</select>
+
 	<select id="insertSample" parameterType="sample" >
 		/* TestMapper.insertSample */
 		insert into sample (

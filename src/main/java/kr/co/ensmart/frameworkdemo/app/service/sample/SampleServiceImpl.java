@@ -12,7 +12,6 @@ import kr.co.ensmart.frameworkdemo.app.dao.sample2.Sample2Mapper;
 import kr.co.ensmart.frameworkdemo.base.aop.NoAopTx;
 import kr.co.ensmart.frameworkdemo.common.dto.sample.Sample;
 
-@NoAopTx
 @Service
 public class SampleServiceImpl implements SampleService {
 	@Autowired
@@ -21,22 +20,31 @@ public class SampleServiceImpl implements SampleService {
     @Autowired
     private Sample2Mapper sample2Mapper;
 
+    @NoAopTx
     @Override
 	public List<Sample> retrieveAllSamples() {
 		return  sampleMapper.selectAllSampleList();
 	}
 
     @Override
+    public List<Sample> retrieveSlowSamples() {
+        return  sampleMapper.selectSlowSampleList();
+    }
+
+    @Override
     public List<Sample> retrieveAllSamplesCaller() {
         return  retrieveAllSamplesTx();
     }
 
+    @NoAopTx
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public List<Sample> retrieveAllSamplesTx() {
         return  sampleMapper.selectAllSampleList();
     }
 
+    @NoAopTx
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	@Override
 	public Sample retrieveSampleById(Integer id) {
 		return  sampleMapper.selectSampleById(id);

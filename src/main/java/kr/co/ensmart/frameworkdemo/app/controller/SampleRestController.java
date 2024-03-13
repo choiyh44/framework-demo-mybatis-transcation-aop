@@ -25,6 +25,11 @@ public class SampleRestController {
 		return sampleService.retrieveAllSamples();
 	}
 	
+    @GetMapping("/retrieve-slow-samples")
+    public List<Sample> retrieveSlowSamples() {
+        return sampleService.retrieveSlowSamples();
+    }
+    
     @GetMapping("/retrieve-all-samples-caller")
     public List<Sample> retrieveAllSamplesCaller() {
         return sampleService.retrieveAllSamplesCaller();

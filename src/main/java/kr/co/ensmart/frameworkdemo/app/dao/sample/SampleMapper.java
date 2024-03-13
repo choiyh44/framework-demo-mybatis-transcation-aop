@@ -10,7 +10,9 @@ import kr.co.ensmart.frameworkdemo.common.dto.sample.Sample;
 public interface SampleMapper {
 	List<Sample> selectAllSampleList();
 	
-	Sample selectSampleById(Integer id);
+    List<Sample> selectSlowSampleList();
+
+    Sample selectSampleById(Integer id);
 
     /**
      * @param sample1
